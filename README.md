@@ -13,8 +13,58 @@ The default mode is deterministic and works without an API key. An
 OpenAI-compatible provider can be enabled through environment variables; the
 repository never contains a real secret.
 
+## Assignment answer: how precision and reliability are achieved
+
+This prototype does not send the entire knowledge base to the model and ask it
+to summarize. It uses a controlled retrieval-and-generation loop:
+
+1. **Relevant data is found with hybrid retrieval.** Each query is searched
+   with BM25 lexical retrieval and an optional dense retriever. Their ranked
+   lists are combined with Reciprocal Rank Fusion (RRF), so exact terms such as
+   “refund period” and semantically similar wording can both be found.
+2. **Relevance is calculated transparently.** BM25 scores term frequency,
+   inverse document frequency, and document-length normalization. Retrieval
+   also considers section-title matches. The reranker then combines the
+   retrieval score with query-term overlap, source authority, freshness, and
+   stale-content penalties. Current policies rank above FAQs, and FAQs rank
+   above historical tickets.
+3. **The evidence is narrowed before generation.** Retrieved chunks are split
+   into sentences. Sentences matching the query are ranked again, with a
+   boost for supported factual values such as numbers, dates, durations,
+   percentages, and limits. Only the strongest evidence sentences are sent to
+   the generator, which prevents an unrelated paragraph from dominating the
+   answer.
+4. **The answer is grounded and checked.** The model is instructed to answer
+   from evidence, state an explicitly supported exact value first, and never
+   invent missing values. The generated answer is checked for evidence overlap.
+   If the provider is unavailable, deterministic grounded generation is used.
+5. **Uncertainty is visible.** Missing evidence, low confidence, stale data,
+   contradictions, unsafe requests, and failed grounding produce escalation
+   metadata rather than a confident unsupported answer.
+
+This design optimizes for **precision over broad recall in the final answer**:
+retrieval may collect several candidates, but generation receives only the
+highest-value, authoritative evidence. For example, the question “What is the
+standard refund period?” selects the current policy sentence containing
+“14 days” instead of leading with a general cancellation explanation.
+
+### Direct answers to the review requirements
+
+| Review question | Implementation answer |
+|---|---|
+| How is the most relevant text fetched? | BM25 plus optional dense retrieval, RRF fusion, authority/freshness reranking, then sentence-level evidence selection. |
+| How is relevance measured? | BM25 term statistics, title/query overlap, RRF rank contribution, authority, freshness, stale penalties, and factual-value matching. |
+| How is a precise answer produced? | Only focused evidence is passed to generation; exact supported values must lead the answer; grounding validation rejects unsupported output. |
+| What happens with bad retrieval? | No-match and low-confidence results are disclosed and escalated instead of being presented as certain answers. |
+| What happens with stale data? | Archived/outdated language is penalized and disclosed; current official policy takes precedence. |
+| What happens when sources conflict? | The system does not select arbitrarily; it surfaces the conflict and follows escalation logic. |
+| How is quality measured? | Recall@5 and MRR measure retrieval; answer correctness, grounded-claim rate, hallucination rate, exact-value accuracy, citation quality, escalation quality, latency, and cost measure production behavior. |
+| How are records stored? | Documents and stable metadata-preserving chunks are represented as typed records; the same schema can be persisted in Qdrant, PostgreSQL, or another vector store. |
+| How does the query flow end-to-end? | The complete flow is shown in the system diagram below and documented step by step in [Architecture and query flow](#architecture-and-query-flow). |
+
 ## Contents
 
+- [Assignment answer: precision and reliability](#assignment-answer-how-precision-and-reliability-are-achieved)
 - [Features](#features)
 - [Quick start](#quick-start)
 - [Using the application](#using-the-application)
