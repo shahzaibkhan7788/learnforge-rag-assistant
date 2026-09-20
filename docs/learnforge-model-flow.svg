@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1500" viewBox="0 0 2400 1500">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#52727a"/>
+    </marker>
+    <style>
+      .title{font:700 30px Arial;fill:#12343a}.section{font:700 19px Arial;fill:#0d716a;letter-spacing:2px}.node{fill:#fff;stroke:#c9dfe0;stroke-width:2}.node2{fill:#eefaf7;stroke:#88d3c6;stroke-width:2}.risk{fill:#fff5e8;stroke:#e2ae67;stroke-width:2}.text{font:600 18px Arial;fill:#173840}.small{font:400 15px Arial;fill:#5b7077}.line{stroke:#52727a;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke:#9bafb3;stroke-width:2;stroke-dasharray:8 8;fill:none}
+    </style>
+  </defs>
+  <rect width="2400" height="1500" fill="#f7faf9"/>
+  <text x="120" y="70" class="title">LearnForge Customer Support Assistant — Complete Model Flow</text>
+  <text x="120" y="105" class="small">Offline-first RAG pipeline with OpenRouter generation, exact-evidence selection, grounding validation, SSE streaming, and human escalation</text>
+
+  <rect x="80" y="145" width="2240" height="330" rx="24" fill="#edf8f6" stroke="#b9e0da" stroke-width="2"/>
+  <text x="120" y="185" class="section">1 · KNOWLEDGE INGESTION AND INDEXING (STARTUP)</text>
+  <rect x="120" y="220" width="270" height="95" rx="14" class="node"/><text x="255" y="255" text-anchor="middle" class="text">faqs.md</text><text x="255" y="282" text-anchor="middle" class="small">official FAQ guidance</text>
+  <rect x="450" y="220" width="270" height="95" rx="14" class="node"/><text x="585" y="255" text-anchor="middle" class="text">policies.md</text><text x="585" y="282" text-anchor="middle" class="small">current policy source</text>
+  <rect x="780" y="220" width="270" height="95" rx="14" class="node"/><text x="915" y="255" text-anchor="middle" class="text">tickets.md</text><text x="915" y="282" text-anchor="middle" class="small">historical examples</text>
+  <rect x="1110" y="220" width="300" height="95" rx="14" class="node2"/><text x="1260" y="255" text-anchor="middle" class="text">Markdown parser</text><text x="1260" y="282" text-anchor="middle" class="small">documents + IDs + sections</text>
+  <rect x="1470" y="220" width="330" height="95" rx="14" class="node2"/><text x="1635" y="255" text-anchor="middle" class="text">Metadata + smart chunks</text><text x="1635" y="282" text-anchor="middle" class="small">authority, freshness, status</text>
+  <rect x="1860" y="220" width="400" height="95" rx="14" class="node2"/><text x="2060" y="255" text-anchor="middle" class="text">BM25 + optional dense/Qdrant index</text><text x="2060" y="282" text-anchor="middle" class="small">ready for hybrid retrieval</text>
+  <path d="M390 267H1110M720 267H1110M1050 267H1110M1410 267H1470M1800 267H1860" class="line"/>
+  <text x="120" y="375" class="small">Source authority: current policy → FAQ/help documentation → historical support ticket</text>
+  <text x="120" y="405" class="small">Outdated or archived language is retained for detection but cannot override current guidance.</text>
+
+  <rect x="80" y="525" width="2240" height="790" rx="24" fill="#fff" stroke="#d8e5e5" stroke-width="2"/>
+  <text x="120" y="565" class="section">2 · RUNTIME QUESTION-ANSWERING PIPELINE (PER REQUEST)</text>
+  <rect x="120" y="615" width="250" height="90" rx="14" class="node"/><text x="245" y="650" text-anchor="middle" class="text">User question</text><text x="245" y="678" text-anchor="middle" class="small">browser chat UI</text>
+  <rect x="430" y="615" width="280" height="90" rx="14" class="node2"/><text x="570" y="650" text-anchor="middle" class="text">POST /query/stream</text><text x="570" y="678" text-anchor="middle" class="small">HTTP + SSE response</text>
+  <rect x="770" y="615" width="300" height="90" rx="14" class="node2"/><text x="920" y="650" text-anchor="middle" class="text">Safety + conversation</text><text x="920" y="678" text-anchor="middle" class="small">redact + rewrite follow-up</text>
+  <rect x="1130" y="615" width="270" height="90" rx="14" class="risk"/><text x="1265" y="650" text-anchor="middle" class="text">Intent gate</text><text x="1265" y="678" text-anchor="middle" class="small">greeting / ambiguity / risk</text>
+  <path d="M370 660H430M710 660H770M1070 660H1130" class="line"/>
+
+  <rect x="120" y="790" width="300" height="95" rx="14" class="risk"/><text x="270" y="825" text-anchor="middle" class="text">Direct response</text><text x="270" y="852" text-anchor="middle" class="small">greeting or capability question</text>
+  <rect x="480" y="790" width="300" height="95" rx="14" class="risk"/><text x="630" y="825" text-anchor="middle" class="text">Clarification</text><text x="630" y="852" text-anchor="middle" class="small">ambiguous cancellation/refund</text>
+  <rect x="840" y="790" width="300" height="95" rx="14" class="node2"/><text x="990" y="825" text-anchor="middle" class="text">Hybrid retrieval</text><text x="990" y="852" text-anchor="middle" class="small">BM25 + dense + RRF fusion</text>
+  <rect x="1200" y="790" width="300" height="95" rx="14" class="node2"/><text x="1350" y="825" text-anchor="middle" class="text">Reranker</text><text x="1350" y="852" text-anchor="middle" class="small">authority + freshness + relevance</text>
+  <rect x="1560" y="790" width="300" height="95" rx="14" class="node2"/><text x="1710" y="825" text-anchor="middle" class="text">Sentence evidence</text><text x="1710" y="852" text-anchor="middle" class="small">most relevant facts only</text>
+  <rect x="1920" y="790" width="300" height="95" rx="14" class="node2"/><text x="2070" y="825" text-anchor="middle" class="text">Confidence gate</text><text x="2070" y="852" text-anchor="middle" class="small">enough reliable evidence?</text>
+  <path d="M1265 705V760M1265 760H990V790M1265 760H630V790M1265 760H270V790M1140 837H1200M1500 837H1560M1860 837H1920" class="line"/>
+
+  <rect x="840" y="1000" width="300" height="95" rx="14" class="node2"/><text x="990" y="1035" text-anchor="middle" class="text">OpenRouter model</text><text x="990" y="1062" text-anchor="middle" class="small">focused evidence + strict prompt</text>
+  <rect x="1200" y="1000" width="300" height="95" rx="14" class="node2"/><text x="1350" y="1035" text-anchor="middle" class="text">Exact-answer guard</text><text x="1350" y="1062" text-anchor="middle" class="small">specific values first</text>
+  <rect x="1560" y="1000" width="300" height="95" rx="14" class="node2"/><text x="1710" y="1035" text-anchor="middle" class="text">Grounding validator</text><text x="1710" y="1062" text-anchor="middle" class="small">answer supported by evidence?</text>
+  <rect x="1920" y="1000" width="300" height="95" rx="14" class="node2"/><text x="2070" y="1035" text-anchor="middle" class="text">Final response</text><text x="2070" y="1062" text-anchor="middle" class="small">answer + sources + confidence</text>
+  <path d="M2070 885V950H990V1000M1140 1047H1200M1500 1047H1560M1860 1047H1920" class="line"/>
+
+  <rect x="120" y="1165" width="300" height="95" rx="14" class="risk"/><text x="270" y="1200" text-anchor="middle" class="text">Human escalation</text><text x="270" y="1227" text-anchor="middle" class="small">low confidence / conflict / risk</text>
+  <rect x="480" y="1165" width="300" height="95" rx="14" class="node2"/><text x="630" y="1200" text-anchor="middle" class="text">SSE token stream</text><text x="630" y="1227" text-anchor="middle" class="small">progressive browser rendering</text>
+  <rect x="840" y="1165" width="300" height="95" rx="14" class="node"/><text x="990" y="1200" text-anchor="middle" class="text">Source citations</text><text x="990" y="1227" text-anchor="middle" class="small">POLICY / FAQ / TICKET IDs</text>
+  <rect x="1200" y="1165" width="300" height="95" rx="14" class="node"/><text x="1350" y="1200" text-anchor="middle" class="text">Browser UI</text><text x="1350" y="1227" text-anchor="middle" class="small">answer + review status</text>
+  <path d="M270 885V1165M2070 1095V1130H270V1165M2070 1095V1130H630V1165M2070 1095V1130H990V1165M2070 1095V1130H1350V1165" class="line"/>
+  <text x="120" y="1375" class="small">Safety invariant: never request or repeat passwords, full card numbers, CVV, PINs, or authentication codes.</text>
+  <text x="120" y="1405" class="small">No external web search is used in the answer path. The internal LearnForge knowledge base remains the source of truth.</text>
+</svg>
