@@ -3,6 +3,7 @@ from pathlib import Path
 from app.main import SupportAssistant
 from app.ingestion.loader import load_documents
 from app.ingestion.chunker import chunk_documents
+from app.retrieval.reranker import rerank
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -55,3 +56,18 @@ def test_greeting_does_not_retrieve_unrelated_knowledge():
     assert result["sources"] == []
     assert result["escalation"] is None
     assert "support assistant" in result["answer"].lower()
+
+
+def test_exact_value_query_prioritizes_focused_authoritative_evidence():
+    assistant = SupportAssistant(ROOT, llm_enabled=False)
+    candidates = assistant.retriever.search(
+        "What is the standard refund period?", limit=8
+    )
+    hits = rerank("What is the standard refund period?", candidates, limit=5)
+
+    assert hits[0].chunk.document_id == "POLICY-02"
+    assert hits[0].chunk.id == "POLICY-02:1"
+    assert "14 days" in hits[0].chunk.text
+    assert len(hits[0].chunk.text) < len(
+        next(chunk for chunk in assistant.chunks if chunk.id == "POLICY-02:1").text
+    )
