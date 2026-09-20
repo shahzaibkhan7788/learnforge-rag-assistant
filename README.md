@@ -210,15 +210,6 @@ The `.env` file is ignored by Git. If the key is absent, invalid, or the
 provider fails, the application falls back to its deterministic grounded
 generator rather than returning an ungrounded answer.
 
-### Important API-key rule
-
-Never commit an API key, place it in `.env.example`, or send it by email/Gmail.
-Free keys are still credentials and can be copied or abused. For a company
-review, share the public GitHub repository and this setup documentation; let
-the reviewer create their own key or provide it through a secret manager,
-GitHub Actions secret, or private deployment environment. If a key is exposed,
-revoke it immediately and create a replacement.
-
 ## Using Gemini instead
 
 The current code is provider-agnostic at the configuration boundary but
