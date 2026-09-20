@@ -1,0 +1,11 @@
+services:
+  support-assistant:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      SUPPORT_LLM_PROVIDER: ${SUPPORT_LLM_PROVIDER:-}
+      SUPPORT_LLM_BASE_URL: ${SUPPORT_LLM_BASE_URL:-}
+      SUPPORT_LLM_MODEL: ${SUPPORT_LLM_MODEL:-}
+      SUPPORT_LLM_API_KEY: ${SUPPORT_LLM_API_KEY:-}
+    restart: unless-stopped

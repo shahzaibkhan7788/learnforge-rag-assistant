@@ -1,0 +1,7 @@
+[
+  {"query": "Can I get a refund for a course?", "relevant": ["FAQ-02", "POLICY-02"]},
+  {"query": "Why is my course progress not saved?", "relevant": ["FAQ-03", "POLICY-06"]},
+  {"query": "Can I watch courses offline on my laptop?", "relevant": ["FAQ-07", "POLICY-04"]},
+  {"query": "I do not recognize a LearnForge charge", "relevant": ["FAQ-15", "POLICY-10"]},
+  {"query": "What happens if my subscription payment fails?", "relevant": ["FAQ-04", "POLICY-01"]}
+]

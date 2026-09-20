@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LearnForge Support</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">L</div><div><strong>LearnForge</strong><span>Support Intelligence</span></div></div>
+      <div class="status"><i></i><span>Knowledge base online</span></div>
+      <div class="side-copy"><h2>Resolve with confidence.</h2><p>Answers grounded in current policies, FAQs, and support history.</p></div>
+      <div class="side-card"><span class="eyebrow">Protected by design</span><p>Secrets and payment credentials are redacted before they reach the model.</p></div>
+      <div class="side-footer">Internal support workspace <span>v1.0</span></div>
+    </aside>
+    <section class="workspace">
+      <header class="topbar"><div><span class="eyebrow">CUSTOMER SUPPORT / AI ASSISTANT</span><h1>How can we help today?</h1></div><button id="clearBtn" class="ghost">＋ New conversation</button></header>
+      <div id="messages" class="messages">
+        <div class="welcome"><div class="spark">✦</div><h2>Ask anything about LearnForge</h2><p>I’ll search the knowledge base and show exactly where the answer came from.</p></div>
+        <div class="suggestions">
+          <button data-query="How do I reset my password?">Reset my password <b>→</b></button>
+          <button data-query="Can I get a refund for a course?">Refund policy <b>→</b></button>
+          <button data-query="Why isn't my course progress being saved?">Progress not saving <b>→</b></button>
+          <button data-query="Can I watch courses offline?">Offline learning <b>→</b></button>
+        </div>
+      </div>
+      <form id="chatForm" class="composer"><textarea id="query" rows="1" placeholder="Describe your issue..." aria-label="Your support question"></textarea><button class="send" aria-label="Send message">↑</button><div class="composer-note">Enter to send · Shift + Enter for a new line</div></form>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
