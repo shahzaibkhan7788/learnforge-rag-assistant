@@ -14,6 +14,8 @@ def create_handler(assistant: Any):
     frontend_dir = Path(__file__).resolve().parents[2] / "frontend"
 
     class Handler(BaseHTTPRequestHandler):
+        protocol_version = "HTTP/1.1"
+
         def _read_json(self) -> dict:
             size = int(self.headers.get("Content-Length", "0"))
             body = json.loads(self.rfile.read(size).decode("utf-8"))
@@ -71,6 +73,7 @@ def create_handler(assistant: Any):
                     self.send_response(200)
                     self.send_header("Content-Type", "text/event-stream; charset=utf-8")
                     self.send_header("Cache-Control", "no-cache")
+                    self.send_header("X-Accel-Buffering", "no")
                     self.send_header("Connection", "keep-alive")
                     self.end_headers()
                     # The answer is already grounded and validated by the normal
