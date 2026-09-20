@@ -117,3 +117,4 @@ authenticated users, durable conversation storage, a managed vector index,
 embedding/version refresh jobs, policy effective-date filtering, rate limits,
 structured observability, and human-reviewed answer tests. Qdrant and dense
 retrieval hooks are provided but intentionally do not download models.
+#
